@@ -181,6 +181,12 @@ html, body, [class*="css"], .stApp {
     background-clip: text;
     margin-bottom: 1rem;
     text-shadow: none;
+    white-space: nowrap;
+}
+@media (max-width: 768px) {
+    .hero-title { font-size: 3rem !important; white-space: normal !important; }
+    .hero-sub   { font-size: 0.9rem !important; }
+    .block-container { padding: 0 1rem 3rem !important; }
 }
 
 .hero-sub {
@@ -611,6 +617,13 @@ div[data-testid="InputInstructions"] {
 [data-testid="stSidebar"] {
     background: var(--bg2) !important;
     border-right: 1px solid var(--border2) !important;
+    min-width: 280px !important;
+}
+/* hide the collapse arrow button */
+[data-testid="collapsedControl"],
+button[kind="header"],
+[data-testid="stSidebarCollapseButton"] {
+    display: none !important;
 }
 [data-testid="stSidebar"] * { color: var(--text) !important; }
 [data-testid="stSidebar"] .stTextInput > div > div {
