@@ -786,11 +786,28 @@ st.markdown("""
         Multi Agent Orchestration & Retrieval Framework
     </div>
     <div class="hero-title">Research Core</div>
-    <div class="hero-sub">Six autonomous AI agents that search, read, verify and write research reports — powered by fortune</div>
+    <div class="hero-sub">Six autonomous AI agents that search, read, verify and write research reports</div>
     <div class="hero-divider">🍀 &nbsp; 🍀 &nbsp; 🍀</div>
 </div>
 """, unsafe_allow_html=True)
 
+
+# ── MOBILE SIDEBAR HINT ───────────────────────────────────────────────────────
+st.markdown("""
+<div style="
+    background: rgba(34,197,94,0.12);
+    border: 1px solid #22c55e;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    font-size: 0.82rem;
+    color: #4ade80;
+    margin-bottom: 1rem;
+    font-family: 'DM Sans', sans-serif;
+">
+    🔑 <b>First:</b> Open the <b>sidebar (← arrow)</b> and enter your API keys
+</div>
+""", unsafe_allow_html=True)
 
 # ── INPUT ──────────────────────────────────────────────────────────────────────
 _, col, _ = st.columns([1, 5, 1])
