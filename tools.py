@@ -1,13 +1,13 @@
+import os
 from langchain.tools import tool
 from tavily import TavilyClient
-import os
 from dotenv import load_dotenv
-from rich import print
+
 load_dotenv()
 
 
 def get_tavily():
-    """Get Tavily client with key from environment — set at runtime from sidebar."""
+    """Get Tavily client — reads key from env set at runtime."""
     return TavilyClient(api_key=os.environ.get("TAVILY_API_KEY"))
 
 

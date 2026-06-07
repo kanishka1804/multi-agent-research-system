@@ -27,16 +27,18 @@ Quality Expectations:
 ])
 
 
-def run_supervisor(topic: str) -> dict:
+def run_supervisor(topic: str, groq_api_key: str = None) -> dict:
     """Analyze topic and return structured plan for all agents."""
 
     print("\n[Supervisor] Analyzing topic and creating research plan...")
 
-    # built inside function so it picks up key set at runtime from sidebar
+    # use passed key first, fallback to env
+    api_key = groq_api_key or os.environ.get("GROQ_API_KEY")
+
     llm = ChatGroq(
         model="llama-3.3-70b-versatile",
         temperature=0,
-        api_key=os.environ.get("GROQ_API_KEY")
+        api_key=api_key
     )
 
     supervisor_chain = supervisor_prompt | llm | StrOutputParser()
@@ -53,11 +55,10 @@ def run_supervisor(topic: str) -> dict:
                 if q:
                     queries.append(q)
 
-    # fallback if parsing fails
     if not queries:
         queries = [topic]
 
     return {
         "plan": plan,
-        "queries": queries[:1]  
+        "queries": queries[:1]
     }

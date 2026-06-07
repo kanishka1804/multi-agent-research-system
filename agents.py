@@ -8,30 +8,30 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def get_llm():
-    """Get LLM with key from environment — set at runtime from sidebar."""
+def get_llm(api_key=None):
+    """Get LLM — key passed directly, fallback to env."""
     return ChatGroq(
         model="llama-3.3-70b-versatile",
         temperature=0,
-        api_key=os.environ.get("GROQ_API_KEY")
+        api_key=api_key or os.environ.get("GROQ_API_KEY")
     )
 
 
-# 1st agent - Search (direct tool call — no LangGraph overhead)
+# 1st agent - Search (direct tool call)
 def build_search_agent():
     def run(query: str) -> str:
         return web_search.invoke(query)
     return run
 
 
-# 2nd agent - Reader (direct tool call — no LangGraph overhead)
+# 2nd agent - Reader (direct tool call)
 def build_reader_agent():
     def run(url: str) -> str:
         return scrape_url.invoke(url)
     return run
 
 
-# 3rd agent - Fact Checker (direct tool call — no LangGraph overhead)
+# 3rd agent - Fact Checker (direct tool call)
 def build_fact_checker_agent():
     def run(claim: str) -> str:
         return fact_check.invoke(claim)
@@ -115,17 +115,17 @@ Overall Credibility: X/10"""),
 ])
 
 
-def get_writer_chain():
-    return writer_prompt | get_llm() | StrOutputParser()
+def get_writer_chain(api_key=None):
+    return writer_prompt | get_llm(api_key) | StrOutputParser()
 
-def get_critic_chain():
-    return critic_prompt | get_llm() | StrOutputParser()
+def get_critic_chain(api_key=None):
+    return critic_prompt | get_llm(api_key) | StrOutputParser()
 
-def get_fact_checker_chain():
-    return fact_checker_prompt | get_llm() | StrOutputParser()
+def get_fact_checker_chain(api_key=None):
+    return fact_checker_prompt | get_llm(api_key) | StrOutputParser()
 
 
-# Keep these names for backward compatibility with app.py
-writer_chain       = None  # built at runtime via get_writer_chain()
-critic_chain       = None  # built at runtime via get_critic_chain()
-fact_checker_chain = None  # built at runtime via get_fact_checker_chain()
+# kept for backward compatibility
+writer_chain       = None
+critic_chain       = None
+fact_checker_chain = None

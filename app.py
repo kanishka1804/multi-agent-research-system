@@ -782,7 +782,7 @@ with col:
             disabled=not keys_ready
         )
         run_btn = st.form_submit_button(
-            "🍀  Run Research Pipeline" if keys_ready else "⚠️  Enter API Keys in Sidebar First",
+            "🍀  Run Research Pipeline" if keys_ready else "⚠️  Enter API Keys First",
             use_container_width=True,
             disabled=not keys_ready
         )
@@ -819,9 +819,9 @@ if run_btn and topic.strip():
         st.stop()
 
     # build chains at runtime so they use the user's API key
-    writer_chain       = get_writer_chain()
-    critic_chain       = get_critic_chain()
-    fact_checker_chain = get_fact_checker_chain()
+    writer_chain       = get_writer_chain(groq_key.strip())
+    critic_chain       = get_critic_chain(groq_key.strip())
+    fact_checker_chain = get_fact_checker_chain(groq_key.strip())
 
     state = {}
     section("Pipeline Execution")
@@ -830,7 +830,7 @@ if run_btn and topic.strip():
     # 0 — supervisor
     with ph[0]: nx_card("🧭","Supervisor Agent","Planning research strategy","active")
     with st.spinner("🧭 Supervisor planning research strategy..."):
-        sup = run_supervisor(topic)
+        sup = run_supervisor(topic, groq_api_key=groq_key.strip())
     state["plan"] = sup["plan"]; state["queries"] = sup["queries"]
     with ph[0]: nx_card("🧭","Supervisor Agent","Research plan ready","done", state["plan"])
 
