@@ -716,64 +716,42 @@ def section(label, icon="🍀"):
     </div>""", unsafe_allow_html=True)
 
 
-# ── SIDEBAR — API KEYS ────────────────────────────────────────────────────────
-with st.sidebar:
-    st.markdown("""
-    <div style='text-align:center; padding: 1rem 0 0.5rem;'>
-        <span style='font-size:2rem;'>🍀</span>
-        <div style='font-family:Space Mono,monospace; font-size:0.6rem;
-                    letter-spacing:0.2em; color:#4ade80; text-transform:uppercase;
-                    margin-top:0.5rem;'>API Configuration</div>
+# ── API KEYS — inline on main page (works on mobile too) ──────────────────────
+st.markdown("""
+<div style='background:#0d1a0f; border:1px solid #1a3a1c; border-radius:14px;
+            padding:1.25rem 1.5rem; margin: 0 auto 1.5rem; max-width:600px;'>
+    <div style='font-family:Space Mono,monospace; font-size:0.65rem;
+                letter-spacing:0.2em; color:#4ade80; text-transform:uppercase;
+                margin-bottom:1rem;'>🔑 API Keys Required</div>
+    <div style='font-size:0.78rem; color:#4ade80; line-height:1.8;'>
+        Get free keys at:
+        <a href='https://console.groq.com' target='_blank' style='color:#22c55e;'>console.groq.com</a>
+        &nbsp;and&nbsp;
+        <a href='https://tavily.com' target='_blank' style='color:#22c55e;'>tavily.com</a>
+        <br>
+        <span style='color:#365314; font-size:0.72rem;'>
+            Your keys are never stored — used only for this session.
+        </span>
     </div>
-    """, unsafe_allow_html=True)
+</div>
+""", unsafe_allow_html=True)
 
-    st.markdown("---")
-
+_, keycol, _ = st.columns([1, 5, 1])
+with keycol:
     groq_key = st.text_input(
         "Groq API Key",
         type="password",
-        placeholder="gsk_...",
-        help="Get free key at console.groq.com"
+        placeholder="🔑  Groq API Key — gsk_...",
+        label_visibility="collapsed"
     )
     tavily_key = st.text_input(
         "Tavily API Key",
         type="password",
-        placeholder="tvly-...",
-        help="Get free key at tavily.com"
+        placeholder="🔑  Tavily API Key — tvly-...",
+        label_visibility="collapsed"
     )
 
-    st.markdown("""
-    <div style='margin-top:1rem; padding:0.85rem; background:#0d1a0f;
-                border:1px solid #1a3a1c; border-radius:10px;
-                font-size:0.75rem; color:#4ade80; line-height:1.6;'>
-        <b>🔑 Get free API keys:</b><br>
-        • <a href='https://console.groq.com' target='_blank'
-             style='color:#22c55e;'>console.groq.com</a><br>
-        • <a href='https://tavily.com' target='_blank'
-             style='color:#22c55e;'>tavily.com</a><br><br>
-        <span style='color:#365314; font-size:0.7rem;'>
-        Your keys are never stored.<br>They are used only for this session.
-        </span>
-    </div>
-    """, unsafe_allow_html=True)
-
-    keys_ready = bool(groq_key.strip() and tavily_key.strip())
-    if keys_ready:
-        st.markdown("""
-        <div style='margin-top:0.75rem; padding:0.6rem; background:rgba(34,197,94,0.1);
-                    border:1px solid #22c55e; border-radius:8px;
-                    text-align:center; font-size:0.75rem; color:#4ade80;'>
-            ✅ Keys ready — run your research!
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown("""
-        <div style='margin-top:0.75rem; padding:0.6rem; background:rgba(251,191,36,0.08);
-                    border:1px solid #fbbf24; border-radius:8px;
-                    text-align:center; font-size:0.75rem; color:#fbbf24;'>
-            ⚠️ Enter both keys to start
-        </div>
-        """, unsafe_allow_html=True)
+keys_ready = bool(groq_key.strip() and tavily_key.strip())
 
 # ── HERO ───────────────────────────────────────────────────────────────────────
 st.markdown("""
@@ -791,23 +769,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
-# ── MOBILE SIDEBAR HINT ───────────────────────────────────────────────────────
-st.markdown("""
-<div style="
-    background: rgba(34,197,94,0.12);
-    border: 1px solid #22c55e;
-    border-radius: 12px;
-    padding: 0.75rem 1rem;
-    text-align: center;
-    font-size: 0.82rem;
-    color: #4ade80;
-    margin-bottom: 1rem;
-    font-family: 'DM Sans', sans-serif;
-">
-    🔑 <b>First:</b> Open the <b>sidebar (← arrow)</b> and enter your API keys
-</div>
-""", unsafe_allow_html=True)
 
 # ── INPUT ──────────────────────────────────────────────────────────────────────
 _, col, _ = st.columns([1, 5, 1])
